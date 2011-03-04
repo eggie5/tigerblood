@@ -1,0 +1,1 @@
+i will try to implement famous design patterns and algorithms in various languages here. The goal is to learn what are the right tools for certain jobs. Whether it be if a certain algorithm or design pattern will be usefull or whether or not a certain language is better suited for a certain job.

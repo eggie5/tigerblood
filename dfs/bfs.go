@@ -19,11 +19,13 @@ func main() {
 
 	fmt.Println(adj)
 	
-	bfs(adj, "s");
+	pi := bfs(adj, "s");
+	
+	print_path(pi, "s", "y")
 
 }
 
-func bfs(G map[string][]string, s string) {
+func bfs(G map[string][]string, s string) (_pi map[string]string) {
 	
 	color := map[string]string{}
 	d := map[string]int{} //distance
@@ -45,11 +47,11 @@ func bfs(G map[string][]string, s string) {
 	 //pi[s]=-1 //source has no predecessor
 	 
 	 q := queue.New()
-	 q.PushFront(s)
+	 q.PushBack(s)
 	 
 
 	 for(q.Len()!=0) { // the loop iterates asl long as there remain grey vertices
-		 u := q.Back().(string)
+		 u := q.Front().(string)
 		 // fmt.Println(u)
 		 vertices := G[u]
 		 
@@ -58,17 +60,18 @@ func bfs(G map[string][]string, s string) {
 				 color[v]="g" //discovered
 				 d[v]=d[u]+1 //increment distance
 				 pi[v]=u // u is recorded as the parent
-				 q.PushFront(v) //add to tail of Q to be searched later
+				 q.PushBack(v) //add to tail of Q to be searched later
 				 
 			 }
 			 
 		 }
 		 
-		 q.PopBack()
+		 q.PopFront()
  		 
 		 color[u]="b"
 		 
 		 fmt.Println("q: ", q)
+
 	 }
 	 
 	 
@@ -77,8 +80,30 @@ func bfs(G map[string][]string, s string) {
 	 fmt.Println("pi", pi)
 	 
 	 fmt.Println("done")
+	 
+	 return pi
 	
 }
+
+
+//BFS runs in O(V) setup time + O(E) were E is the number of edges. The Queue operations are in theory O(1) so
+//BFS runs in linear time
+
+
+//the BFS routine populated populated a pi hash which holds the GFS tree and in theory can be traversed to form
+// the shortest path to a given vertex. Here is a recursive algo to print the shortest path
+
+func print_path(pi map[string]string, s string, v string)() {
+	
+	if(v==s) {
+		fmt.Println("s") //base case of recursion
+		//end recursion 
+	} else {
+		print_path(pi, s, pi[v])
+		fmt.Println(v)
+	}
+}
+
 
 
 

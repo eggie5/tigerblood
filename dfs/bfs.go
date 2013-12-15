@@ -66,8 +66,7 @@ func bfs(G map[string][]string, s string) (_pi map[string]string) {
 			 
 		 }
 		 
-		 q.PopFront()
- 		 
+		 q.PopFront()//dequeue and color black
 		 color[u]="b"
 		 
 		 fmt.Println("q: ", q)
